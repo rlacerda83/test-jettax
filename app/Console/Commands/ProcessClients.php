@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Jobs\GetClientInvoices;
 use App\Jobs\ProcessClient;
+use App\Services\MongoClient;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 
@@ -30,7 +31,7 @@ class ProcessClients extends Command
      */
     public function handle()
     {
-        $mongoClient = DB::connection(env('DB_CONNECTION'))->getMongoClient();
+        $mongoClient = MongoClient::getClient();
 
         $filter = [
             'status' => 1
@@ -39,7 +40,7 @@ class ProcessClients extends Command
         $clients = $mongoClient->clients->find($filter);
 
         foreach ($clients as $client) {
-            dispatch(new GetClientInvoices($client->_id));
+            dispatch(new GetClientInvoices($client));
         }
     }
 }

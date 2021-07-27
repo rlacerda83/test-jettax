@@ -2,13 +2,13 @@
 
 namespace App\Jobs;
 
-use App\Models\Client;
+use App\Models\Invoice;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use MongoDB\Model\BSONDocument;
 
 class GetClientInvoices implements ShouldQueue
 {
@@ -21,7 +21,7 @@ class GetClientInvoices implements ShouldQueue
      *
      * @return void
      */
-    public function __construct(Client $client)
+    public function __construct(BSONDocument $client)
     {
         $this->client = $client;
     }
@@ -33,6 +33,15 @@ class GetClientInvoices implements ShouldQueue
      */
     public function handle()
     {
-        // get invoices
+        for ($i = 0; $i <= 100; $i++) {
+            $xml = simplexml_load_file(storage_path('app/public/sample.xml'));
+            $json = json_encode($xml);
+            $array = json_decode($json,true);
+
+            $invoiceData = $array['NFe']['infNFe'];
+            $invoiceData['clientId'] = $this->client->_id;
+
+            Invoice::create($invoiceData);
+        }
     }
 }
