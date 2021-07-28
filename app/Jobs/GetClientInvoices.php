@@ -34,7 +34,7 @@ class GetClientInvoices implements ShouldQueue
     public function handle()
     {
         for ($i = 0; $i <= 100; $i++) {
-            $xml = simplexml_load_file(storage_path('app/public/sample.xml'));
+            $xml = simplexml_load_file(public_path('/sample.xml'));
             $json = json_encode($xml);
             $array = json_decode($json,true);
 
