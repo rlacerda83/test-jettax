@@ -24,13 +24,17 @@ elasticsearch, etc)
 **Precisamos de um protótipo que busca as notas do cliente e salva as mesmas no banco de dados para acesso do cliente 
 numa plataforma web.**
 
+
 Alguns dados importantes do nosso projeto:
  - Nosso protótipo nasceu com 5k cliente na base, mas o o potencial de crescimento chega a 500k em dois anos;
  - Cada cliente tem em média 100 notas por dia;
- - A busca retorna um arquivo XML, que deve ser parseado e salvo no banco;
- - Vamos usar como base de banco uma máquina com 8GB RAM, e 2 réplicas.
+ - A busca retorna um arquivo XML, que deve ser parseado e salvo no banco (*no processo real os xmls são retornados
+   via ws, mas vamos usar o xml direto pra acelerar as coisas*);
+ - A média de usuários simultâneos equivale a 30% da base de clientes em dias de pico;
+ - Muita atenção com o banco de dados;
 
-Pensando no crescimento acelerado precisamos entregar os seguintes itens:
+
+Pensando no crescimento da base precisamos entregar os seguintes itens:
 
 1. **A cada duas horas precisamos buscar as notas de todos os clientes**
     - Apenas clientes ativos devem ser processados;
