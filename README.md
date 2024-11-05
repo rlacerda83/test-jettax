@@ -35,3 +35,18 @@ Devemos gravar os seguintes campo no mongo:
 - Se for regular, a data de validade da CND, o código de validação e o arquivo PDF (de preferência na AWS)
 
 Os dados da CND devem ser exibidos através de uma listagem com filtro de CNPJ, se está regular ou náo e pela data de validade
+
+## Dados para o teste
+
+**CNPJs em situação regular:**
+
+10867143000159
+
+13546470000105
+
+
+**CNPJs em situação irregular:**
+
+21443079000103
+
+96325394000127
